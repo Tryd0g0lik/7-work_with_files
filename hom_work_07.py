@@ -236,12 +236,16 @@ for df in f_list:
   if len(copy ) == 0:
     df_df.loc[:, 'file'] = 0
     df_df.loc[:, 'file'] = '1.txt'
+    df_df.loc[:, 'length'] = 0
+    df_df.loc[:, 'length'] = int(len(df_df))
     copy = df_df.copy()
     # print(copy)
     continue
   elif len(copy) == (len(df_1.split('\n'))):
     df_df.loc[:, 'file'] = 0
     df_df.loc[:, 'file'] = '2.txt'
+    df_df.loc[:, 'length'] = 0
+    df_df.loc[:, 'length'] = int(len(df_df))
     # df_df.loc[:, 'file'] = f_
     # df_df.loc[:, 'string'] = l
     # print(df_df)
@@ -256,6 +260,8 @@ for df in f_list:
   elif len(copy) == (len(df_1.split('\n')) + len(df_2.split('\n'))) :
     df_df.loc[:, 'file'] = 0
     df_df.loc[:, 'file'] = '3.txt'
+    df_df.loc[:, 'length'] = 0
+    df_df.loc[:, 'length'] = int(len(df_df))
     # df_df.loc[:, 'file'] = f_
     # df_df.loc[:, 'string'] = l
     df3 = df_df.iloc[0 : (len(df_df)) ].copy()
@@ -264,7 +270,15 @@ for df in f_list:
     copy = copy.append(df3)
     # print('44',f_, len(copy))
 
-print('----', copy)
+copy.rename(columns={'string' : 'Number_str'}, inplace=True)
+# copy.rename(columns={0 : 'string'})
+# print('----', copy)
+# df_sort = pd.Categorical(copy, categories=['length'])
+# print(df_sort)
+group_df = copy.groupby(['length', 'file', 0]).mean(20)
+
+print('----' )
+print((group_df))
 # print(len(copy))
   # print(df_df)
 
