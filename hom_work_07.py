@@ -218,7 +218,9 @@ f_3.close()
 
 print()
 f_list = [df_1, df_2, df_3]
+
 f = ['1.txt', '2.txt', '3.txt']
+copy = []
 for df in f_list:
 
   df_l = df.split('\n')
@@ -226,33 +228,44 @@ for df in f_list:
   # print(([numb for numb in range(len(df_1))]))
   str_ = [numb +1 for numb in range(len(df_l))]
 
-
+  # print('str___', str_)
   df_df = pd.DataFrame(df_l)
   df_df.loc[:, 'string'] = 0
 
-
-  for f_ in f:
-    print('111', f_)
+  df_df.loc[:, 'string'] = str_
+  if len(copy ) == 0:
     df_df.loc[:, 'file'] = 0
-    df_df.loc[:, 'file'] = f_
+    df_df.loc[:, 'file'] = '1.txt'
+    copy = df_df.copy()
+    # print(copy)
+    continue
+  elif len(copy) == (len(df_1.split('\n'))):
+    df_df.loc[:, 'file'] = 0
+    df_df.loc[:, 'file'] = '2.txt'
+    # df_df.loc[:, 'file'] = f_
+    # df_df.loc[:, 'string'] = l
+    # print(df_df)
+    df2 = df_df.iloc[0 : (len(df_df)) ].copy()
+    # copy.loc[:, 'file'] = f_
+    # copy.loc[:, 'string'] = l
 
-    df_df.loc[:, 'string'] = str_
-    if f_ == '1.txt':
+    copy = copy.append(df2)
+    # print('44',f_, len(copy))
+    # print(df_1)
+    continue
+  elif len(copy) == (len(df_1.split('\n')) + len(df_2.split('\n'))) :
+    df_df.loc[:, 'file'] = 0
+    df_df.loc[:, 'file'] = '3.txt'
+    # df_df.loc[:, 'file'] = f_
+    # df_df.loc[:, 'string'] = l
+    df3 = df_df.iloc[0 : (len(df_df)) ].copy()
+    # copy.loc[:, 'file'] = f_
+    # copy.loc[:, 'string'] = l
+    copy = copy.append(df3)
+    # print('44',f_, len(copy))
 
-      copy = df_df.copy()
-      # print('333',f_, copy)
-      # print(df_df)
-    else:
-
-      # df_df.loc[:, 'file'] = f_
-      # df_df.loc[:, 'string'] = l
-      df2 = df_df.iloc[0 : (len(df_df) - 1) ].copy()
-      # copy.loc[:, 'file'] = f_
-      # copy.loc[:, 'string'] = l
-      copy = copy.append(df2)
-      # print('44',f_, len(copy))
-print(copy)
-
+print('----', copy)
+# print(len(copy))
   # print(df_df)
 
   # print(df_df)
