@@ -4,6 +4,7 @@ print('''Название блюда
 Название ингредиента | Количество | Единица измерения''')
 file = open('cooke.txt', 'r', encoding='UTF8')
 data_file = file.read()
+file.close()
 data_file = data_file.split('\n')
 
 import pandas as pd
@@ -192,8 +193,71 @@ def get_shop_list_by_dishes(df, person_food, person ):
     return cook_book
   elif t == 'd':
     dishes(cook_book)
-print(get_shop_list_by_dishes(df, person_food, person) )
+# print(get_shop_list_by_dishes(df, person_food, person) )
 print(' ')
+
+print('ЗАДАЧА 3')
+
+f_1 = open('task_3/1.txt', 'r', encoding='UTF8')
+df_1 = f_1.read()
+f_1.close()
+# print('111')
+# print(df_1)
+print()
+f_2 = open('task_3/2.txt', 'r', encoding='UTF8')
+df_2 = f_2.read()
+f_2.close()
+# print('222')
+# print(df_2)
+print('')
+f_3 = open('task_3/3.txt', 'r', encoding='UTF8')
+df_3 = f_3.read()
+f_3.close()
+# print('333')
+# print(df_3)
+
+print()
+f_list = [df_1, df_2, df_3]
+f = ['1.txt', '2.txt', '3.txt']
+for df in f_list:
+
+  df_l = df.split('\n')
+  # print('df_l len', len(df_l))
+  # print(([numb for numb in range(len(df_1))]))
+  str_ = [numb +1 for numb in range(len(df_l))]
+
+
+  df_df = pd.DataFrame(df_l)
+  df_df.loc[:, 'string'] = 0
+
+
+  for f_ in f:
+    print('111', f_)
+    df_df.loc[:, 'file'] = 0
+    df_df.loc[:, 'file'] = f_
+
+    df_df.loc[:, 'string'] = str_
+    if f_ == '1.txt':
+
+      copy = df_df.copy()
+      # print('333',f_, copy)
+      # print(df_df)
+    else:
+
+      # df_df.loc[:, 'file'] = f_
+      # df_df.loc[:, 'string'] = l
+      df2 = df_df.iloc[0 : (len(df_df) - 1) ].copy()
+      # copy.loc[:, 'file'] = f_
+      # copy.loc[:, 'string'] = l
+      copy = copy.append(df2)
+      # print('44',f_, len(copy))
+print(copy)
+
+  # print(df_df)
+
+  # print(df_df)
+
+
 # print('ЗАДАЧА 2.1')
 #
 # # print((data_))
