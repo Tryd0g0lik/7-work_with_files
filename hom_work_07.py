@@ -275,15 +275,44 @@ copy.rename(columns={'string' : 'Number_str'}, inplace=True)
 # print('----', copy)
 # df_sort = pd.Categorical(copy, categories=['length'])
 # print(df_sort)
-group_df = copy.groupby(['length', 'file', 0]).mean(20)
-
+group_df = copy.groupby(['length', 'file', 0]).mean().sort_values(['length', 'Number_str'])  #.mean(20) #.count() #
+print(group_df)
 print('----' )
-print((group_df))
-# print(len(copy))
-  # print(df_df)
 
-  # print(df_df)
+new_group_df = (pd.DataFrame(group_df).reset_index())[0:][['length', 'file', 'Number_str']]
+print(new_group_df)
+print('-------')
+array_length = np.array(new_group_df['length']).tolist()
+array_name_file = np.array(new_group_df['file']).tolist()
+array_number_str = np.array(new_group_df['Number_str']).tolist()
+print(f'leng: {len(array_length)}, {array_length}')
+print(f'leng: {len(array_name_file)}, {array_name_file}')
+print(f'leng: {len(array_number_str)}, {array_number_str}')
+print('-------')
+consolidated_info = []
+for i in range(len(array_name_file)):
+  # print('f: ', type(f))
+  # for l in array_length:
+  print('l: ', array_number_str)
+  for id in range(len(array_number_str)):
+    s = round(array_number_str[id])
+    back_s = array_number_str[id]
+    # print('s: ', type(s))
+    f_num = str(array_name_file[i]).strip('.txt')
 
+    if round(array_number_str[id - 1]) == 0:
+      consolidated_info += [f'''{str(array_name_file[i])}
+        {str(array_length[i])}
+        Строка номер {str(s)} файла номер {f_num}''']
+    if s > round(array_number_str[id - 1]) and round(array_number_str[id - 1]) != 0:
+      consolidated_info += [f'''{str(array_name_file[i])}
+        {str(array_length[i])}
+        Строка номер {str(s)} файла номер {f_num}''']
+    if s < round(array_number_str[id - 1]) and round(array_number_str[id - 1]) != 0:
+      pass
+
+  # break
+print(len(consolidated_info))
 
 # print('ЗАДАЧА 2.1')
 #
