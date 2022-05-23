@@ -1,3 +1,5 @@
+import pandas as pd
+import numpy as np
 print('''Название блюда
 Количество ингредиентов в блюде
 Название ингредиента | Количество | Единица измерения
@@ -7,8 +9,7 @@ data_file = file.read()
 file.close()
 data_file = data_file.split('\n')
 
-import pandas as pd
-import numpy as np
+
 # data_file = pd.read_csv('cooke.txt')
 # print((pd.DataFrame(data_file).iat[0, 0]))
 # print((pd.DataFrame(data_file).rename_axis))
@@ -196,7 +197,18 @@ def get_shop_list_by_dishes(df, person_food, person ):
 # print(get_shop_list_by_dishes(df, person_food, person) )
 print(' ')
 
-print('ЗАДАЧА 3')
+print('''ЗАДАЧА 3
+Часть 1
+Сортировка представлена через pd.DataFrame
+Отсортированно по стоьлбцу Number_str
+
+Часть 2
+Что является содержимым файлов, "Итоговый файл" не понял.
+Файл с конечным текстом выложен в папку "task_3".
+Формат текста соблюдается.
+
+!: Данный формат https://prnt.sc/zIWa95fq7MKv должен или не должен реализовать так и не понял из формулировки  
+задания.''')
 
 f_1 = open('task_3/1.txt', 'r', encoding='UTF8')
 df_1 = f_1.read()
@@ -282,37 +294,45 @@ print('----' )
 new_group_df = (pd.DataFrame(group_df).reset_index())[0:][['length', 'file', 'Number_str']]
 print(new_group_df)
 print('-------')
-array_length = np.array(new_group_df['length']).tolist()
-array_name_file = np.array(new_group_df['file']).tolist()
-array_number_str = np.array(new_group_df['Number_str']).tolist()
-print(f'leng: {len(array_length)}, {array_length}')
-print(f'leng: {len(array_name_file)}, {array_name_file}')
-print(f'leng: {len(array_number_str)}, {array_number_str}')
-print('-------')
-consolidated_info = []
-for i in range(len(array_name_file)):
-  # print('f: ', type(f))
-  # for l in array_length:
-  print('l: ', array_number_str)
-  for id in range(len(array_number_str)):
-    s = round(array_number_str[id])
-    back_s = array_number_str[id]
-    # print('s: ', type(s))
-    f_num = str(array_name_file[i]).strip('.txt')
+list_for_df = np.array(new_group_df) #.tolist()
+print(list_for_df)
+for i in range(len(list_for_df)):
+  # print('i: ', i)
+  # print('i:', i, 'list_for_df[i]:', len(list_for_df[i-1]), list_for_df[i - 0])
+  #, 'list_for_df[i - 1][1]:',
+  # list_for_df[i
+  # - 1][1])
+  # print('i: ', i, list_for_df[i][1])
+  if i == 0:
+    # print('i: ', i)
+    consolidated_info = f'''{list_for_df[i][1]} \n {list_for_df[i][0]}  \n Строка номер {round(list_for_df[i][2])} файла номер {list_for_df[i][1].strip(".txt")}'''
+    # print(consolidated_info)
+    continue
 
-    if round(array_number_str[id - 1]) == 0:
-      consolidated_info += [f'''{str(array_name_file[i])}
-        {str(array_length[i])}
-        Строка номер {str(s)} файла номер {f_num}''']
-    if s > round(array_number_str[id - 1]) and round(array_number_str[id - 1]) != 0:
-      consolidated_info += [f'''{str(array_name_file[i])}
-        {str(array_length[i])}
-        Строка номер {str(s)} файла номер {f_num}''']
-    if s < round(array_number_str[id - 1]) and round(array_number_str[id - 1]) != 0:
-      pass
+  elif list_for_df[i][1] == list_for_df[i-1][1]:
+    # print('i: ', i)
+    info_ = '''
+Строка номер {} файла номер {}'''.format(round(list_for_df[i][2]), list_for_df[i][1].strip(".txt"))
+
+    consolidated_info = consolidated_info + info_
+    # continue
+  else:
+    # print('i: ', i)
+    info_ = '''\n{}
+{}
+Строка номер {} файла номер {}'''.format(list_for_df[i][1], list_for_df[i][0], round(list_for_df[i][2]), list_for_df[i][1].strip(".txt"))
+    # print(consolidated_info)
+    consolidated_info = consolidated_info + info_
+print(consolidated_info)
+new_file  = open('task_3/task_finished.txt', 'w', encoding='UTF8')
+new_file.write(consolidated_info)
+new_file.close()
+print('-------')
+  # consolidated_info
+# print()
 
   # break
-print(len(consolidated_info))
+
 
 # print('ЗАДАЧА 2.1')
 #
